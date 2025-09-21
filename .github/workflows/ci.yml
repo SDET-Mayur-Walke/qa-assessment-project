@@ -16,28 +16,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
+          # This line tells the action to install pnpm for you
+          # It's a more reliable way to ensure pnpm is available.
+          registry-url: 'https://registry.npmjs.org/'
+          check-latest: true
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Run Unit & API Tests
         run: pnpm test:unit && pnpm test:api
-        # '&&' ensures fail-fast behavior. If unit tests fail, API tests won't run.
 
       - name: Run E2E Tests
-        # Runs the E2E tests for all configured browsers in a matrix
         run: pnpm e2e:ci
         env:
           NODE_ENV: production
-        # Playwright's test runner handles fail-fast.
 
       - name: Upload Test Reports
         if: always()
