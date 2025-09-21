@@ -1,6 +1,7 @@
 // apps/web/app/hooks/useSearchWithCancel.test.ts
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
+import { useSearchWithCancel } from './useSearchWithCancel';
 
 // Mock the GraphQL client and navigation
 vi.mock('../lib/graphql-client', () => ({
@@ -28,11 +29,13 @@ describe('useSearchWithCancel', () => {
     const mockNavigate = vi.fn();
     
     // Mock the GraphQL client
-    vi.mocked(require('../lib/graphql-client').createGraphQLClient).mockReturnValue({
+    const { createGraphQLClient } = await import('../lib/graphql-client');
+    vi.mocked(createGraphQLClient).mockReturnValue({
       request: mockRequest
     });
     
-    vi.mocked(require('@remix-run/react').useNavigate).mockReturnValue(mockNavigate);
+    const { useNavigate } = await import('@remix-run/react');
+    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 
     // Mock AbortController
     const mockAbort = vi.fn();
@@ -42,7 +45,7 @@ describe('useSearchWithCancel', () => {
     })) as any;
 
     const { result } = renderHook(() => 
-      require('./useSearchWithCancel').useSearchWithCancel('', 100)
+      useSearchWithCancel('', 100)
     );
 
     // Trigger first search
@@ -69,11 +72,13 @@ describe('useSearchWithCancel', () => {
     const mockRequest = vi.fn();
     const mockNavigate = vi.fn();
     
-    vi.mocked(require('../lib/graphql-client').createGraphQLClient).mockReturnValue({
+    const { createGraphQLClient } = await import('../lib/graphql-client');
+    vi.mocked(createGraphQLClient).mockReturnValue({
       request: mockRequest
     });
     
-    vi.mocked(require('@remix-run/react').useNavigate).mockReturnValue(mockNavigate);
+    const { useNavigate } = await import('@remix-run/react');
+    vi.mocked(useNavigate).mockReturnValue(mockNavigate);
 
     const mockAbort = vi.fn();
     global.AbortController = vi.fn(() => ({
@@ -82,7 +87,7 @@ describe('useSearchWithCancel', () => {
     })) as any;
 
     const { result } = renderHook(() => 
-      require('./useSearchWithCancel').useSearchWithCancel('', 100)
+      useSearchWithCancel('', 100)
     );
 
     // Start search
@@ -97,5 +102,5 @@ describe('useSearchWithCancel', () => {
 
     expect(mockAbort).toHaveBeenCalled();
     expect(result.current.isSearching).toBe(false);
-  });
+  });
 });

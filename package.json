@@ -7,8 +7,10 @@
     "dev:all": "concurrently -n api,web -c blue,green \"pnpm --filter ./apps/api dev\" \"pnpm --filter ./apps/web dev\"",
     "build": "pnpm -w run build:all",
     "build:all": "pnpm --filter ./packages/shared build && pnpm --filter ./apps/api build && pnpm --filter ./apps/web build",
-    "test:unit": "vitest --run --coverage",
-    "test:api": "vitest --run apps/api --environment=node",
+    "test:unit": "pnpm --filter ./packages/shared test && pnpm --filter ./apps/web test && pnpm --filter ./apps/api test",
+    "test:api": "pnpm --filter ./apps/api test",
+    "test:web": "pnpm --filter ./apps/web test",
+    "test:shared": "pnpm --filter ./packages/shared test",
     "e2e": "playwright test",
     "e2e:ci": "playwright test --reporter=list,junit",
     "seed": "tsx apps/api/src/data/seed.ts"
@@ -19,9 +21,12 @@
     "@vitejs/plugin-react": "^5.0.2",
     "@vitest/coverage-v8": "^3.2.4",
     "concurrently": "^9.2.1",
+    "jsdom": "^27.0.0",
+    "redent": "^4.0.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   }
-}
+}  
+

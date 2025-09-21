@@ -1,3 +1,4 @@
+// apps/api/vitest.config.ts
 /// <reference types="vitest" />
 import { defineConfig } from "vitest/config";
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -6,20 +7,15 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     globals: true,
-    environment: "node",
+    environment: 'node',
     include: ['src/**/*.{test,spec}.{js,ts}'],
-    exclude: ['**/node_modules/**', '**/dist/**'],
-    reporters: ['default', ['junit', { outputFile: '../../artifacts/junit/api-integration-results.xml' }]],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**'],
+    reporters: ['default', ['junit', { outputFile: '../../artifacts/junit/api-results.xml' }]],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
       reportsDirectory: '../../artifacts/coverage/api',
-      exclude: [
-        '**/node_modules/**',
-        '**/dist/**',
-        '**/*.config.{ts,js}',
-        '**/test-helpers/**',
-      ],
+      exclude: ['**/node_modules/**', '**/dist/**'],
     },
   },
 });
