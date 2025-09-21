@@ -1,5 +1,5 @@
 {
-  "name": "qa-assessment",
+  "name": "shared",
   "private": true,
   "packageManager": "pnpm@10.16.1",
   "scripts": {
