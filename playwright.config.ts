@@ -1,11 +1,10 @@
 // playwright.config.ts - Configured for QA Assessment
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
 export default defineConfig({
   testDir: './apps/web/e2e',
+  // Add a testMatch pattern to only include files in the e2e directory
+  testMatch: '**/*.spec.ts', 
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -39,35 +38,28 @@ export default defineConfig({
 
     /* Record video on failure */
     video: 'retain-on-failure',
-
-    /* Additional browser context options */
-    viewport: { width: 1280, height: 720 },
-    ignoreHTTPSErrors: true,
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
-        // Add specific options for Chromium if needed
       },
     },
 
     {
       name: 'firefox',
-      use: { 
+      use: {
         ...devices['Desktop Firefox'],
-        // Add specific options for Firefox if needed
       },
     },
 
     {
       name: 'webkit',
-      use: { 
+      use: {
         ...devices['Desktop Safari'],
-        // Add specific options for WebKit if needed
       },
     },
   ],
@@ -78,17 +70,11 @@ export default defineConfig({
       command: 'pnpm --filter ./apps/api dev',
       port: 4000,
       reuseExistingServer: !process.env.CI,
-      timeout: 120 * 1000, // 2 minutes for API to start
     },
     {
       command: 'pnpm --filter ./apps/web dev',
       port: 3000,
       reuseExistingServer: !process.env.CI,
-      timeout: 120 * 1000, // 2 minutes for web to start
     },
   ],
-
-  /* Global setup and teardown */
-  globalSetup: require.resolve('./apps/web/e2e/global-setup.ts'),
-  globalTeardown: require.resolve('./apps/web/e2e/global-teardown.ts'),
 });
