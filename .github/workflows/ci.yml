@@ -22,45 +22,36 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Create artifacts directories
-        run: |
-          mkdir -p artifacts/junit
-          mkdir -p artifacts/playwright-report
-
       - name: Run Unit & API Tests
         run: pnpm test:unit && pnpm test:api
-        # Fail fast is handled by the shell operator '&&'
-
-      - name: Upload JUnit Report for Unit & API Tests
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: unit-api-test-results
-          path: artifacts/junit/unit-results.xml
+        # '&&' ensures fail-fast behavior. If unit tests fail, API tests won't run.
 
       - name: Run E2E Tests
+        # Runs the E2E tests for all configured browsers in a matrix
         run: pnpm e2e:ci
         env:
-          # Set NODE_ENV to production for the E2E tests if needed
           NODE_ENV: production
-        # Fail fast is handled by Playwright's test runner, which exits on first failure
-        
-      - name: Upload E2E Test Reports
-        uses: actions/upload-artifact@v4
+        # Playwright's test runner handles fail-fast.
+
+      - name: Upload Test Reports
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: e2e-test-reports
+          name: test-reports
           path: |
-            artifacts/junit/e2e-results.xml
+            artifacts/junit
             artifacts/playwright-report
             
       - name: Upload E2E Test Traces
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: e2e-test-traces
+          name: e2e-traces
           path: artifacts/test-results
           retention-days: 1
