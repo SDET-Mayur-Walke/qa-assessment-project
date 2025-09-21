@@ -67,7 +67,7 @@ jobs:
           path: |
             artifacts/junit
             artifacts/playwright-report
-            
+
       - name: Upload E2E Test Traces
         if: always()
         uses: actions/upload-artifact@v4
