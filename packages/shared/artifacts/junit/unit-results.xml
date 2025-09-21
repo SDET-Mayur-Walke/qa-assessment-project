@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="8" failures="0" errors="0" time="0.0200802">
+    <testsuite name="tests/utils.test.ts" timestamp="2025-09-20T15:17:36.183Z" hostname="DESKTOP-ON2T6AQ" tests="8" failures="0" errors="0" skipped="0" time="0.0200802">
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should format cents to dollars correctly" time="0.0035168">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should handle large numbers and decimals correctly" time="0.000376">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should parse feature flag headers correctly" time="0.0029152">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should handle empty or malformed feature flag headers" time="0.0011658">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should generate valid order numbers with correct format" time="0.0007503">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should generate unique cart IDs with correct format" time="0.0017177">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should have correct type definitions for User interface" time="0.0014253">
+        </testcase>
+        <testcase classname="tests/utils.test.ts" name="Shared Utilities &gt; should handle optional properties correctly in Product interface" time="0.002654">
+        </testcase>
+    </testsuite>
+</testsuites>

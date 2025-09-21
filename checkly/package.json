@@ -1,0 +1,25 @@
+{
+  "name": "checkly-monitoring",
+  "version": "1.0.0",
+  "description": "Checkly monitoring definitions for QA Assessment Coffee Shop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "checkly:test": "checkly test",
+    "checkly:run": "checkly run",
+    "checkly:deploy": "checkly deploy",
+    "checkly:list": "checkly list",
+    "checkly:trigger": "checkly trigger"
+  },
+  "dependencies": {
+    "@checkly/cli": "^3.0.0",
+    "@playwright/test": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

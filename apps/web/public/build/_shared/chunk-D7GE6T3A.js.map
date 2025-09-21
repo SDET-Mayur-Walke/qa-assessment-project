@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../packages/shared/dist/index.js"],
+  "sourcesContent": ["export var ErrorCode;\n(function (ErrorCode) {\n    ErrorCode[\"UNAUTHENTICATED\"] = \"UNAUTHENTICATED\";\n    ErrorCode[\"OUT_OF_STOCK\"] = \"OUT_OF_STOCK\";\n    ErrorCode[\"RATE_LIMITED\"] = \"RATE_LIMITED\";\n})(ErrorCode || (ErrorCode = {}));\nexport function formatMoney(cents) {\n    return `$${(cents / 100).toFixed(2)}`;\n}\nexport function parseFeatureFlags(headerValue) {\n    if (!headerValue)\n        return {};\n    return headerValue.split(',').reduce((flags, flag) => {\n        const [key, value] = flag.split('=');\n        flags[key.trim()] = value?.trim().toLowerCase() === 'true';\n        return flags;\n    }, {});\n}\nexport function generateOrderNumber() {\n    const timestamp = Date.now().toString(36).toUpperCase();\n    const random = Math.random().toString(36).substring(2, 5).toUpperCase();\n    return `ORD-${timestamp}-${random}`;\n}\nexport function generateCartId() {\n    return `cart_${Date.now()}_${Math.random().toString(36).substring(2)}`;\n}\n"],
+  "mappings": ";AAAO,IAAI;AAAA,CACV,SAAUA,YAAW;AAClB,EAAAA,WAAU,iBAAiB,IAAI;AAC/B,EAAAA,WAAU,cAAc,IAAI;AAC5B,EAAAA,WAAU,cAAc,IAAI;AAChC,GAAG,cAAc,YAAY,CAAC,EAAE;AACzB,SAAS,YAAY,OAAO;AAC/B,SAAO,KAAK,QAAQ,KAAK,QAAQ,CAAC;AACtC;",
+  "names": ["ErrorCode"]
+}

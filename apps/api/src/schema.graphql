@@ -1,0 +1,89 @@
+scalar DateTime
+scalar Money
+
+type User {
+  id: ID!
+  email: String!
+  name: String
+}
+
+type Product {
+  id: ID!
+  slug: String!
+  name: String!
+  price: Money!
+  inStock: Boolean!
+  description: String
+  imageUrl: String
+  tags: [String!]!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type CartItem {
+  product: Product!
+  quantity: Int!
+  lineTotal: Money!
+}
+
+type Cart {
+  id: ID!
+  items: [CartItem!]!
+  subtotal: Money!
+  discountTotal: Money!
+  total: Money!
+  appliedCoupon: String
+  version: Int!
+}
+
+type Order {
+  id: ID!
+  number: String!
+  createdAt: DateTime!
+  items: [CartItem!]!
+  total: Money!
+}
+
+type Query {
+  me: User
+  products(query: String, first: Int = 10, after: String, tag: String): ProductConnection!
+  product(id: ID, slug: String): Product
+  cart: Cart!
+  orders: [Order!]!
+  health: String!
+}
+
+enum ErrorCode {
+  UNAUTHENTICATED
+  OUT_OF_STOCK
+  RATE_LIMITED
+}
+
+input AddToCartInput {
+  productId: ID!
+  quantity: Int! = 1
+}
+
+type Mutation {
+  login(email: String!): Boolean!
+  confirmLogin(email: String!, code: String!): String!
+  addToCart(input: AddToCartInput!): Cart!
+  applyCoupon(code: String!): Cart!
+  updateCartItem(productId: ID!, quantity: Int!): Cart!
+  removeFromCart(productId: ID!): Cart!
+  checkout: Order!
+}
