@@ -1,4 +1,4 @@
-name: QA Assessment CI
+﻿name: QA Assessment CI
 
 on:
   push:
@@ -74,4 +74,4 @@ jobs:
         with:
           name: e2e-traces
           path: artifacts/test-results
-          retention-days: 1
+          retention-days: 1
