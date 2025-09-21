@@ -67,9 +67,9 @@ test.describe('Basic Smoke Test', () => {
     await page.getByRole('link', { name: 'Cart' }).click();
     await expect(page).toHaveURL('/cart');
 
-    // Verify cart page elements
-    await expect(page.getByText('Your Cart')).toBeVisible();
-    await expect(page.getByTestId('cart-apply-coupon')).toBeVisible();
-    await expect(page.getByTestId('checkout-submit')).toBeVisible();
+    // Verify cart page elements (empty cart state)
+    await expect(page.getByRole('heading', { name: 'Your Cart' })).toBeVisible();
+    await expect(page.getByText('Your cart is empty')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Continue Shopping' })).toBeVisible();
   });
 });
